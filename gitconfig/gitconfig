@@ -20,5 +20,5 @@
   autoSetupMerge = true
 
 [include]
-  path = .gitconfig.alias     # Global aliases
-  path = .gitconfig.profiles  # Different profiles for different environments
+  path = ~/.gitconfig.alias     # Global aliases
+  path = ~/.gitconfig.profiles  # Different profiles for different environments
