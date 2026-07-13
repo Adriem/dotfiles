@@ -1,0 +1,15 @@
+# ===================================
+# System-wide configuration for zsh.
+# ===================================
+
+# Configure vi on the terminal prompt
+set -o vi
+
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+export LESS=-iXFR
+export LANG=en_US.UTF-8
+export MANPATH="/usr/local/man:$MANPATH"
+export EDITOR="vim"
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64

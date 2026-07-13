@@ -1,0 +1,111 @@
+[alias]
+
+  # -=( CUSTOM OPERATIONS )=------------------------------------------------------------------------
+
+  checkout-main     = checkout master
+  fetch-main        = fetch origin
+  push-main         = push origin master
+  pull-main         = pull origin master
+  merge-main-local  = merge master
+  merge-main-remote = merge origin/master
+
+  branch-name = rev-parse --abbrev-ref HEAD
+  log-all = log --oneline
+
+  commit-msg = commit -m
+  commit-all-msg = commit -a -m
+
+  push-current  = "!f() { git push origin `git branch-name`; }; f"
+  pull-current  = "!f() { git pull origin `git branch-name`; }; f"
+  merge-current = "!f() { git merge origin/`git branch-name`; }; f"
+
+  undo-last = reset HEAD^
+
+  delete-local = branch -D
+  delete-remote = "!f() { git push origin --delete `git branch-name`; }; f"
+
+  override-remote-from-local = "!f() { git push --force origin `git branch-name`; }; f"
+  override-local-from-remote = "!f() { git fetch origin && git reset --hard origin/`git branch-name`; }; f"
+  recreate-remote-from-local = "!f() { git delete-remote && git push-current; }; f"
+
+  force-new-branch = "!f() { git delete-local $@; git checkout -b $@; }; f"
+  new-branch-from-latest = "!f() { git checkout-main && git pull-current && git checkout -b $@; }; f"
+  force-new-branch-from-latest = "!f() { git checkout-main && git pull-current && git force-new-branch $@; }; f"
+
+  commit-and-push-staged = "!f() { git commit-all-msg \"$@\" && git push-current; }; f"
+  commit-and-push-all = "!f() { git add -A && git commit-msg \"$@\" && git push-current; }; f"
+
+  # Not working yet :(
+  open-pull-request = "!f() {\
+    remote=`git remote -v | grep origin | grep push | awk '{print $2}'`;\
+    project=`echo $remote | awk -F/ '{print $(NF-1) }'`;\
+    repo=`echo $remote | awk -F/ '{ print $NF }' | cut -d. -f1`;\
+    branch=`git branch-name`;\
+    browser=chrome;\
+    case $1 in\
+      github | gh) start $browser https://github.com/$project/$repo/compare/$branch...develop?expand=1;;\
+      gitlab | gl) start $browser https://gitlab.com/$project/$repo/merge_requests/new?merge_request[source_branch]=$branch;;\
+      bitbucket | bb) start $browser https://bitbucket.org/$project/$repo/pull-requests/new;;\
+      echo) echo https://host:port/path/$project/$repo?branch=$branch;;\
+      *) start $browser https://github.com/$project/$repo/compare/$branch...develop?expand=1;;\
+    esac;\
+  }; f"
+
+
+
+  # -=( ALIASES )=----------------------------------------------------------------------------------
+
+  s  = status
+  st = status
+
+  d = diff
+  df = diff
+
+  l = log --oneline -n
+  lol = "!f() { git log-all; }; f"
+  rmv = remote -v
+
+  feto = "!f() { git fetch-main; }; f"
+  fetus =  "!f() { git fetch-main && git status; }; f"
+
+  ada = add -A
+
+  c     = commit
+  com   = commit
+  comm  = "!f() { git commit-msg \"$@\"; }; f"
+  coma  = commit -a
+  comma = "!f() { git commit-all-msg \"$@\"; }; f"
+  amen  = commit --amend
+  amena = commit --amend -a
+
+  alin = "!f() { git commit-and-push-staged \"$@\"; }; f"
+  allin = "!f() { git commit-and-push-all \"$@\"; }; f"
+
+  cot  = checkout
+  cotb = checkout -b
+  cotbf = "!f() { git force-new-branch $@; }; f"
+  cotm = "!f() { git checkout-main; }; f"
+  cotmb = "!f() { git new-branch-from-latest $@; }; f"
+  cotmbf = "!f() { git force-new-branch-from-latest $@; }; f"
+
+  pus = "!f() { git push-current; }; f"
+  pusm = "!f() { git push-main; }; f"
+  pusf = "!f() { git override-remote-from-local; }; f"
+  pusff = "!f() { git recreate-remote-from-local; }; f"
+
+  pul = "!f() { git pull-current; }; f"
+  pulm = "!f() { git pull-main; }; f"
+  pulf = "!f() { git override-local-from-remote; }; f"
+
+  mer = "!f() { git merge-current; }; f"
+  merml = "!f() { git merge-main-local; }; f"
+  mermr = "!f() { git merge-main-remote; }; f"
+
+  sta = stash
+  stahm = "!f() { git stash save \"$@\"; }; f"
+  stahl = stash list
+  stahp = stash apply
+
+  z = "!f() { git undo-last; }; f"
+
+# vim: set ts=2 sts=2 et sw=2 ft=gitconfig:

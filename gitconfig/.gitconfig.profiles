@@ -1,0 +1,12 @@
+# This file allows some options or operations to be overriden based on the path to each repo
+
+[includeIf "gitdir:~/workspace/adidas/"]
+  path = ~/workspace/adidas/.gitconfig
+
+[includeIf "gitdir:~/workspace/lendismart/"]
+  path = ~/workspace/lendismart/.gitconfig
+
+[includeIf "gitdir:~/workspace/pixsy/"]
+  path = ~/workspace/pixsy/.gitconfig
+
+# vim: set ts=2 sts=2 et sw=2 ft=gitconfig:

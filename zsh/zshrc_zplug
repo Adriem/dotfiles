@@ -1,0 +1,30 @@
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
+
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+zplug "mafredri/zsh-async", from:github
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+zplug "plugins/git", from:oh-my-zsh
+
+zplug zsh-users/zsh-completions, defer:2
+zplug zsh-users/zsh-autosuggestions, defer:2
+# zsh-users/zsh-syntax-highlighting, defer:3
+zplug zsh-users/zsh-history-substring-search, defer:3
+
+# zplug check returns true if all packages are installed
+# Therefore, when it returns false, run zplug install
+if ! zplug check; then
+    zplug install
+fi
+
+# source plugins and add commands to the PATH
+zplug load
+
+# --- zsh plugin: pure prompt --------------------------------------------------
+
+PURE_PROMPT_SYMBOL=$
+PURE_PROMPT_VICMD_SYMBOL=›
+zstyle :prompt:pure:path color green
+zstyle :prompt:pure:prompt:success color green
+zstyle :prompt:pure:git:branch color yellow
+zstyle :prompt:pure:git:branch color yellow

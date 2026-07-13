@@ -1,0 +1,13 @@
+alias g=git
+alias k=kubectl
+
+alias ls='ls -G'
+alias ll='ls -Gl'
+alias la='ls -Gla'
+
+alias cl=clear
+alias x=exit
+alias :q=exit
+alias so=source
+
+alias jq='jq -Rr ". as \$line | fromjson? // \$line"'

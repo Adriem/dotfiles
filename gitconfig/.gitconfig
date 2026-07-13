@@ -1,0 +1,24 @@
+[core]
+  eol = lf
+  autocrlf = input
+  safecrlf = false
+  pager = less
+  editor = /usr/bin/vim
+  excludesfile = ~/.gitconfig.ignore
+
+[user]
+  email = adrn.moreno@gmail.com
+  name = Adrian Moreno
+
+[push]
+  default = upstream  # If no arguments are provided, push to the upstream
+
+[pull]
+  rebase = true
+
+[branch]
+  autoSetupMerge = true
+
+[include]
+  path = .gitconfig.alias     # Global aliases
+  path = .gitconfig.profiles  # Different profiles for different environments
